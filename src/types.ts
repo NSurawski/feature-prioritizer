@@ -78,3 +78,42 @@ export const CATEGORIES = [
   { name: 'UX', color: '#ec4899' },
   { name: 'Other', color: '#8b5cf6' },
 ];
+
+export const SAMPLE_FEATURES: Feature[] = [
+  {
+    id: crypto.randomUUID(),
+    name: 'In-app notifications',
+    description: 'Real-time alerts for key user actions and updates',
+    category: 'Retention',
+    rice: { reach: 5000, impact: 2, confidence: 80, effort: 3 },
+    ice: { impact: 8, confidence: 7, ease: 5 },
+    valueEffort: { value: 8, effort: 5 },
+  },
+  {
+    id: crypto.randomUUID(),
+    name: 'Self-serve onboarding wizard',
+    description: 'Step-by-step setup flow to reduce time-to-value',
+    category: 'Growth',
+    rice: { reach: 3000, impact: 3, confidence: 90, effort: 5 },
+    ice: { impact: 9, confidence: 8, ease: 4 },
+    valueEffort: { value: 9, effort: 7 },
+  },
+  {
+    id: crypto.randomUUID(),
+    name: 'CSV bulk import',
+    description: 'Let users upload data in bulk instead of manual entry',
+    category: 'UX',
+    rice: { reach: 1200, impact: 1, confidence: 70, effort: 1 },
+    ice: { impact: 5, confidence: 6, ease: 8 },
+    valueEffort: { value: 5, effort: 2 },
+  },
+  {
+    id: crypto.randomUUID(),
+    name: 'Role-based access control',
+    description: 'Admin, editor, and viewer permission levels',
+    category: 'Infrastructure',
+    rice: { reach: 800, impact: 2, confidence: 60, effort: 8 },
+    ice: { impact: 7, confidence: 5, ease: 2 },
+    valueEffort: { value: 7, effort: 9 },
+  },
+];

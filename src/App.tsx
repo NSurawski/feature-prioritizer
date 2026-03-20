@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Feature, Framework } from './types';
+import { SAMPLE_FEATURES } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import FeatureForm from './components/FeatureForm';
 import FeatureList from './components/FeatureList';
@@ -13,7 +14,7 @@ const FRAMEWORK_OPTIONS: { value: Framework; label: string }[] = [
 ];
 
 function App() {
-  const [features, setFeatures] = useLocalStorage<Feature[]>('fp-features', []);
+  const [features, setFeatures] = useLocalStorage<Feature[]>('fp-features', SAMPLE_FEATURES);
   const [framework, setFramework] = useLocalStorage<Framework>('fp-framework', 'rice');
   const [editingFeature, setEditingFeature] = useState<Feature | null>(null);
 
