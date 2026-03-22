@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import type { Feature, Framework } from './types';
 import { SAMPLE_FEATURES } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import FeatureForm from './components/FeatureForm';
 import FeatureList from './components/FeatureList';
-import PriorityMatrix from './components/PriorityMatrix';
 import ExportButton from './components/ExportButton';
+
+const PriorityMatrix = lazy(() => import('./components/PriorityMatrix'));
 
 const FRAMEWORK_OPTIONS: { value: Framework; label: string }[] = [
   { value: 'rice', label: 'RICE' },
@@ -94,7 +95,13 @@ function App() {
 
           {/* Right panel: matrix */}
           <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-            <PriorityMatrix features={features} framework={framework} />
+            <Suspense fallback={
+              <div className="flex items-center justify-center h-full text-gray-500 text-sm">
+                <div className="animate-pulse">Loading chart...</div>
+              </div>
+            }>
+              <PriorityMatrix features={features} framework={framework} />
+            </Suspense>
           </div>
         </div>
       </main>
