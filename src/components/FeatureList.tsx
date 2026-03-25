@@ -1,15 +1,11 @@
 import type { Feature, Framework } from '../types';
-import { getPriorityScore, CATEGORIES } from '../types';
+import { getPriorityScore, getCategoryColor } from '../types';
 
 interface Props {
   features: Feature[];
   framework: Framework;
   onEdit: (feature: Feature) => void;
   onDelete: (id: string) => void;
-}
-
-function getCategoryColor(category: string): string {
-  return CATEGORIES.find(c => c.name === category)?.color ?? '#6b7280';
 }
 
 function formatScore(score: number): string {

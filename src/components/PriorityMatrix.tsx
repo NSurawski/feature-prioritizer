@@ -1,14 +1,10 @@
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Label } from 'recharts';
 import type { Feature, Framework } from '../types';
-import { getMatrixCoords, CATEGORIES } from '../types';
+import { getMatrixCoords, getCategoryColor } from '../types';
 
 interface Props {
   features: Feature[];
   framework: Framework;
-}
-
-function getCategoryColor(category: string): string {
-  return CATEGORIES.find(c => c.name === category)?.color ?? '#8b5cf6';
 }
 
 function getAxisLabels(framework: Framework): { x: string; y: string } {

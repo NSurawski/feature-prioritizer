@@ -71,6 +71,10 @@ export function createDefaultFeature(): Feature {
   };
 }
 
+export function getCategoryColor(category: string): string {
+  return CATEGORIES.find(c => c.name === category)?.color ?? '#6b7280';
+}
+
 export const CATEGORIES = [
   { name: 'Growth', color: '#3b82f6' },
   { name: 'Retention', color: '#10b981' },
