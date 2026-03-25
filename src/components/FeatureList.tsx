@@ -58,16 +58,16 @@ export default function FeatureList({ features, framework, onEdit, onDelete }: P
             <span className="text-sm font-mono text-purple-400 shrink-0">
               {formatScore(score)}
             </span>
-            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+            <div className="flex gap-1 shrink-0">
               <button
                 onClick={() => onEdit(feature)}
-                className="text-xs text-gray-400 hover:text-gray-200 px-2 py-1 rounded hover:bg-gray-700"
+                className="text-xs text-gray-500 hover:text-gray-200 px-2 py-1 rounded hover:bg-gray-700 transition-colors"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDelete(feature.id)}
-                className="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded hover:bg-gray-700"
+                className="text-xs text-gray-500 hover:text-red-300 px-2 py-1 rounded hover:bg-gray-700 transition-colors"
               >
                 Delete
               </button>
