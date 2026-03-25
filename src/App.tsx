@@ -14,12 +14,17 @@ const FRAMEWORK_OPTIONS: { value: Framework; label: string }[] = [
   { value: 'value-effort', label: 'Value vs. Effort' },
 ];
 
+const MAX_FEATURES = 20;
+
 function App() {
   const [features, setFeatures] = useLocalStorage<Feature[]>('fp-features', SAMPLE_FEATURES);
   const [framework, setFramework] = useLocalStorage<Framework>('fp-framework', 'rice');
   const [editingFeature, setEditingFeature] = useState<Feature | null>(null);
 
+  const atLimit = features.length >= MAX_FEATURES;
+
   const addFeature = (feature: Feature) => {
+    if (atLimit) return;
     setFeatures(prev => [...prev, feature]);
   };
 
@@ -31,6 +36,11 @@ function App() {
   const deleteFeature = (id: string) => {
     setFeatures(prev => prev.filter(f => f.id !== id));
     if (editingFeature?.id === id) setEditingFeature(null);
+  };
+
+  const loadSamples = () => {
+    setFeatures(SAMPLE_FEATURES);
+    setEditingFeature(null);
   };
 
   const clearAll = () => {
@@ -70,9 +80,19 @@ function App() {
           {/* Left panel: form + list */}
           <div className="flex flex-col gap-6 overflow-y-auto pr-2">
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-              <h2 className="text-sm font-medium text-gray-300 mb-4">
-                {editingFeature ? 'Edit Feature' : 'Add Feature'}
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-medium text-gray-300">
+                  {editingFeature ? 'Edit Feature' : 'Add Feature'}
+                </h2>
+                <span className="text-xs text-gray-500">
+                  {features.length}/{MAX_FEATURES}
+                </span>
+              </div>
+              {atLimit && !editingFeature && (
+                <div className="text-xs text-amber-400 bg-amber-400/10 border border-amber-400/20 rounded-lg px-3 py-2 mb-4">
+                  Feature limit reached ({MAX_FEATURES}). Delete a feature to add more.
+                </div>
+              )}
               <FeatureForm
                 key={editingFeature?.id ?? 'new'}
                 framework={framework}
@@ -80,6 +100,7 @@ function App() {
                 editingFeature={editingFeature}
                 onUpdate={updateFeature}
                 onCancelEdit={() => setEditingFeature(null)}
+                disabled={atLimit && !editingFeature}
               />
             </div>
 
@@ -110,13 +131,21 @@ function App() {
       <footer className="border-t border-gray-800 px-6 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <ExportButton features={features} framework={framework} />
-          <button
-            onClick={clearAll}
-            disabled={features.length === 0}
-            className="text-sm text-red-400 hover:text-red-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-          >
-            Clear All
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={loadSamples}
+              className="text-sm text-gray-400 hover:text-gray-200 transition-colors"
+            >
+              Load Samples
+            </button>
+            <button
+              onClick={clearAll}
+              disabled={features.length === 0}
+              className="text-sm text-red-400 hover:text-red-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              Clear All
+            </button>
+          </div>
         </div>
       </footer>
     </div>

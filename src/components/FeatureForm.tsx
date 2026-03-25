@@ -8,6 +8,7 @@ interface Props {
   editingFeature?: Feature | null;
   onUpdate?: (feature: Feature) => void;
   onCancelEdit?: () => void;
+  disabled?: boolean;
 }
 
 const IMPACT_OPTIONS = [
@@ -18,7 +19,7 @@ const IMPACT_OPTIONS = [
   { value: 3, label: '3 — Massive' },
 ];
 
-export default function FeatureForm({ framework, onAdd, editingFeature, onUpdate, onCancelEdit }: Props) {
+export default function FeatureForm({ framework, onAdd, editingFeature, onUpdate, onCancelEdit, disabled }: Props) {
   const [feature, setFeature] = useState<Feature>(editingFeature ?? createDefaultFeature());
   const isEditing = !!editingFeature;
 
@@ -184,7 +185,8 @@ export default function FeatureForm({ framework, onAdd, editingFeature, onUpdate
       <div className="flex gap-2">
         <button
           type="submit"
-          className="flex-1 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-4 rounded transition-colors"
+          disabled={disabled}
+          className="flex-1 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-4 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-purple-600"
         >
           {isEditing ? 'Update Feature' : 'Add Feature'}
         </button>
