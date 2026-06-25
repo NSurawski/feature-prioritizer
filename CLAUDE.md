@@ -16,6 +16,8 @@ A visual prioritization tool for PMs to score, rank, and communicate feature pri
 - `npm run build` — Type-check with `tsc -b` then build with Vite
 - `npm run lint` — Run ESLint
 - `npm run preview` — Preview production build
+- `npm test` — Run tests once (Vitest)
+- `npm run test:watch` — Run tests in watch mode
 
 ## Project Structure
 
